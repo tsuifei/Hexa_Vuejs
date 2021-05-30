@@ -5,7 +5,7 @@ upload/*
 node_modules
 /dist
 deploy.sh
-Note.md
+/note
 
 # local env files
 .env.local
