@@ -5,5 +5,5 @@
 ### [product list](https://tsuifei.github.io/Hexa_Vuejs/W2/productList.html)
 
 ## W3 Vue3.Js CDN - RESTful API
-### [Login page ]()
-### [product list]()
+### [Login page ](https://tsuifei.github.io/Hexa_Vuejs/W3/login.html)
+### [product list](https://tsuifei.github.io/Hexa_Vuejs/W3/index.html)
