@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>W3_主線任務 後台 產品列表 可編輯</title>
+    <title>W3_後台 產品列表 可編輯</title>
     <!-- CSS only -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
@@ -12,13 +12,16 @@
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="css/w3.css" />
   </head>
 
   <body>
-    <h1>後台 產品頁</h1>
-
-    <div id="app">
-      <div class="container">
+    <div class="container p-5">
+      <div
+        id="app"
+        class="row justify-content-center bg-light shadow border rounded m-2"
+      >
+        <h5 class="h2 mt-3 fw-bold text-center">後台 產品頁</h5>
         <div class="text-end mt-4">
           <!-- 新增 Button trigger modal -->
           <button
@@ -102,7 +105,7 @@
               <div class="modal-body">
                 <div class="row">
                   <!-- 圖片上傳區 -->
-                  <!-- 左邊 -->
+                  <!-- left bloc -->
                   <div class="col-sm-4">
                     <!-- 主要圖片 -->
                     <div class="form-group">
@@ -180,7 +183,7 @@
                       </button>
                     </div>
                   </div>
-                  <!-- 右邊 -->
+                  <!-- right bloc -->
                   <div class="col-sm-8">
                     <div class="form-group">
                       <label for="title">標題</label>
