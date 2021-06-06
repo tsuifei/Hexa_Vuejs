@@ -6,6 +6,7 @@ node_modules
 /dist
 deploy.sh
 /note
+/W4_test
 
 # local env files
 .env.local

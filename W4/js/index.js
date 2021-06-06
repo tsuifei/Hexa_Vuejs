@@ -7,10 +7,6 @@ import pagination from './pagination.js';
 const apiUrl = 'https://vue3-course-api.hexschool.io/api/';
 const apiPath = 'moitw';
 
-// Bootstrap Modal
-let productModal = '';
-let delProductModal = '';
-
 const app = createApp({
   data() {
     return {
@@ -64,21 +60,33 @@ const app = createApp({
           imagesUrl: [],
         };
         this.isNew = true;
-        productModal.show();
       } else if (isNew === 'edit') {
         // 以解構 淺拷貝一份出來修改，不然會直接修改原資料
         this.tempProduct = {
           ...item
         };
         this.isNew = false;
-        productModal.show();
-      } else if (isNew === 'delete') {
-        this.tempProduct = {
-          ...item
-        };
-        delProductModal.show();
+        this.$refs.productModal.openModal()
       }
     },
+    // 刪除產品
+    deleteProduct(product) {
+      if (confirm(`確認刪除此${product.title}產品?`)) {
+        const url = `${apiUrl}${apiPath}/admin/product/${product.id}`;
+        axios.delete(url).then((response) => {
+            console.log(response.data.message);
+            if (response.data.success) {
+              // alert(response.data.message);
+              this.getProduct();
+            } else {
+              alert(response.data.message);
+            }
+          })
+          .catch((error) => {
+            console.log(error, response.data.message);
+          })
+      }
+    }
   },
 });
 // product Modal 元件，新增、編輯產品
@@ -106,7 +114,7 @@ app.component('productModal', {
   // 生命週期
   mounted() {
     // 實體化 Modal(新增 /編輯)
-    productModal = new bootstrap.Modal(document.querySelector("#productModal"), {
+    this.productModal = new bootstrap.Modal(this.$refs.productModal, {
       keyboard: false,
       backdrop: 'static'
     });
@@ -114,13 +122,14 @@ app.component('productModal', {
   // 方法
   methods: {
     // 新增/更新產品
-    updateProduct() {
+    updateProduct(product) {
       // 新增
       let url = `${apiUrl}${apiPath}/admin/product`;
       let httpMethod = 'post';
       if (!this.isNew) {
         url = `${apiUrl}${apiPath}/admin/product/${this.product.id}`;
         httpMethod = 'put'
+        this.$emit('emitUpdate')
       }
       // 使用[]物件取值
       axios[httpMethod](url, {
@@ -143,63 +152,12 @@ app.component('productModal', {
       this.product.imagesUrl.push('');
     },
     openModal() {
-      productModal.show();
+      this.productModal.show();
     },
     hideModal() {
-      productModal.hide();
+      this.productModal.hide();
     },
   },
-
 });
-
-// Delete Product modal 元件 刪除產品
-app.component('delProductModal', {
-  template: '#delProductModal',
-  props: {
-    item: {
-      type: Object,
-      default () {
-        return {}
-      }
-    }
-  },
-  data() {
-    return {
-      modal: null,
-    }
-  },
-  mounted() {
-    // 實體化 Modal(刪除)
-    delProductModal = new bootstrap.Modal(document.querySelector("#delProductModal"), {
-      keyboard: false,
-      backdrop: 'static',
-    });
-  },
-  methods: {
-    // 刪除產品
-    delProduct() {
-      const url = `${apiUrl}${apiPath}/admin/product/${this.item.id}`;
-      axios.delete(url).then((response) => {
-          console.log(response.data.message);
-          if (response.data.success) {
-            alert(response.data.message);
-            this.hideModal();
-            this.$emit('emitDelete');
-          } else {
-            alert(response.data.message);
-          }
-        })
-        .catch((error) => {
-          console.log(error, response.data.message);
-        })
-    },
-    openModal() {
-      delProductModal.show();
-    },
-    hideModal() {
-      delProductModal.hide();
-    },
-  },
-})
 
 app.mount('#app');

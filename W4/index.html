@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>W4_後台 產品列表 可編輯</title>
+    <title>W4 後台 產品列表</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -64,7 +64,7 @@
                     編輯
                   </button>
                   <button
-                    @click="openModal('delete', item)"
+                    @click="deleteProduct(item) "
                     type="button"
                     class="btn btn-sm btn-outline-danger btn-sm"
                   >
@@ -87,12 +87,10 @@
           </div>
         </div>
 
-        <!-- productModal -->
+        <!-- productModal  -->
         <product-modal ref="productModal" :product = "tempProduct"
         @emit-update="getProduct" :is-new= "isNew"></product-modal>
-        <!-- delProductModal  -->
-        <del-product-modal ref="productModal" :item="tempProduct" @emit-delete="getProduct"></del-product-modal>
-        <!-- Fin Modal -->
+        
     </div>
 
 <!-- productModal Template -->
@@ -304,7 +302,7 @@
       </div>
       <div class="modal-footer">
         <button
-          @click="getProduct"
+          @click="hideModal"
           type="button"
           class="btn btn-outline-secondary"
           data-dismiss="modal"
@@ -323,50 +321,7 @@
   </div>
 </div>
 </script>
-<!-- DelProductModal Template -->
-<script type="text/x-template" id="delProductModal">
-  <div
-    id="delProductModal"
-    ref="delProductModal"
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="delProductModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-danger text-white">
-          <h5 id="delProductModalLabel" class="modal-title">
-            <span>刪除產品</span>
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
-        </div>
-        <div class="modal-body">
-          確定刪除
-          <strong class="text-danger">{{ item.title }}</strong>
-          商品？刪除後將無法恢復。
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            取消
-          </button>
-          <button @click="delProduct" type="button" class="btn btn-primary">
-            確認刪除
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</script>
+
 
     <!-- axios -->
     <script
