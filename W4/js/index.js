@@ -160,4 +160,8 @@ app.component('productModal', {
   },
 });
 
+// app.component('loading', {
+
+// })
+
 app.mount('#app');
